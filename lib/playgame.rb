@@ -1,5 +1,4 @@
-require './classes'
-
+require_relative 'classes.rb'
 
 game1 = Game.new
 

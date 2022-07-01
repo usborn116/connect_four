@@ -1,6 +1,6 @@
 WINS = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [0, 4, 8, 12], [1,5,9,13], [2,6,10,14],
-        [3,7,11,15], [0,5,10,15], [3,6,9,12]].freeze
-COLUMNS = [[0,4,8,12], [1,5,9,13], [2,6,10,14], [3,7,11,15]].freeze
+        [3,7,11,15], [0,5,10,15], [3,6,9,12]]
+COLUMNS = [[0,4,8,12], [1,5,9,13], [2,6,10,14], [3,7,11,15]]
 
 class Game
   attr_accessor :players, :board, :current_player_id
@@ -48,6 +48,14 @@ class Game
 
   def update(player)
     column = player.select_position!.to_i
+    if column > 3
+      puts 'Invalid choice!'
+      return
+    end
+    reassign(player, column)
+  end
+
+  def reassign(player, column)
     if @board[COLUMNS[column][3]] == ' '
         @board[COLUMNS[column][3]] = player.token
     elsif @board[COLUMNS[column][2]] == ' '
@@ -90,9 +98,6 @@ class Game
     end
   end
 
-  def over?
-    false unless draw? || winner?(current_player) || full?
-  end
 end
 
 class Player
@@ -107,9 +112,9 @@ class Player
 
   def select_position!
     @game.showboard
-    puts "Select the column to drop your #{token}"
+    p "Select the column to drop your #{token}"
     selection = gets.to_i
-    if (1..4).include?(selection)
+    if selection.between?(1,4)
       selection - 1
     else
       puts 'Not a number! Choose a position between 1 and 9'
