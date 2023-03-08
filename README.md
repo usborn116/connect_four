@@ -1,1 +1,2 @@
 # connect_four
+Built a Connect Four game in Ruby that you can play on your command line. The purpose of this project was to write the tests first, in order to get practice in writing tests. The secondary purpose of this project (and maybe an underlying purpose to any Ruby endeavor) was to continue to get better at OOP and code design!
