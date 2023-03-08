@@ -98,7 +98,7 @@ class Game
 end
 
 class Player
-  attr_accessor :name, :token
+  attr_reader :name, :token
 
   def initialize
     @name = get_name
@@ -108,12 +108,9 @@ class Player
   def select_position!
     p "Select the column to drop your #{token}"
     selection = gets.to_i
-    if selection.between?(1,4)
-      selection - 1
-    else
-      puts 'Not valid! Choose a position between 1 and 9'
-      select_position!
-    end
+    return selection - 1 if selection.between?(1,4)
+    puts 'Not valid! Choose a position between 1 and 9'
+    select_position!
   end
 
   def to_s
